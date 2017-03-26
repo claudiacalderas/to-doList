@@ -20,7 +20,7 @@ router.get('/:list_id', function(req,res) {
       console.log('Error connecting to the database');
       res.sendStatus(500);
     } else {
-      var listsQuery = 'SELECT * FROM "tasks" WHERE "list_id" = $1;';
+      var listsQuery = 'SELECT * FROM "tasks" WHERE "list_id" = $1 ORDER BY "done" ASC;';
       db.query(listsQuery, [list_id],function(queryError,result) {
         done();
         if (queryError) {
@@ -38,19 +38,18 @@ router.post('/add', function(req,res) {
   console.log("inside /tasks/add route");
   console.log("object received is: ", req.body);
   var task_description = req.body.task_description;
-  var priority = parseInt(req.body.priority);
   var list_id = parseInt(req.body.list_id);
   var doneColumn = false;
   var notes = req.body.notes;
-  // INSERT INTO "tasks" ("task_description","priority","list_id","done","due_date","notes") VALUES ($1,$2,$3,$4,$5,$6);
+  // INSERT INTO "tasks" ("task_description","list_id","done","due_date","notes") VALUES ($1,$2,$3,$4);
   pool.connect(function(errorConnectingToDatabase,db,done) {
     if(errorConnectingToDatabase) {
       console.log('Error connecting to the database');
       res.sendStatus(500);
     } else {
-      var insertQuery = 'INSERT INTO "tasks" ("task_description","priority",'+
-          '"list_id","done","notes") VALUES ($1,$2,$3,$4,$5);';
-      db.query(insertQuery,[task_description,priority,list_id,doneColumn,notes],
+      var insertQuery = 'INSERT INTO "tasks" ("task_description",'+
+          '"list_id","done","notes") VALUES ($1,$2,$3,$4);';
+      db.query(insertQuery,[task_description,list_id,doneColumn,notes],
             function(queryError,result) {
         done();
         if (queryError) {

@@ -52,13 +52,11 @@ function eventListeners() {
     console.log("newTaskButton clicked");
     // get values from inputs
     var taskDescription = $('#newTaskDescription').val();
-    var taskPriority = $('#newTaskPriority').val();
     var taskListId = parseInt($('#lists option:selected').attr('id'));
     var taskDone = false;
     var taskNotes = $('#newTaskNotes').val();
     var objectToSend = {
       task_description: taskDescription,
-      priority: taskPriority,
       list_id: taskListId,
       done: taskDone,
       notes: taskNotes
@@ -73,7 +71,6 @@ function eventListeners() {
         success: function(response) {
           getTasks(taskListId);
           $('#newTaskDescription').val("");
-          $('#newTaskPriority').val("");
           $('#newTaskDueDate').val("");
           $('#newTaskNotes').val("");
         }
