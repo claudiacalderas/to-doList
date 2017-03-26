@@ -5,6 +5,8 @@ var app = express();
 var port = 7070;
 
 app.use(express.static('server/public',{index: 'views/index.html'}));
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.use('/lists',lists);
 
 app.listen(port);
