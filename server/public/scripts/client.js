@@ -2,9 +2,16 @@ $(document).ready(function() {
   console.log("jQuery sourced");
 
   eventListeners();
-  getLists();
+
+  // var numberOfLists = $("#lists").children().length;
+  // console.log("list has:", numberOfLists, "elements");
+  // if(numberOfLists > 0){
+    getLists();
+  // }
 
 });
+
+var listId = "";
 
 function eventListeners() {
 
@@ -55,7 +62,7 @@ function eventListeners() {
     console.log("Yes button clicked");
     // get list selected
     var listName = $('#lists').val();
-    var listId = $('#lists option:selected').attr('id');
+    listId = $('#lists option:selected').attr('id');
     console.log('Delete List:', listName);
     console.log("List Id:",listId);
     // Delete tasks related to list
@@ -69,8 +76,11 @@ function eventListeners() {
           url: '/lists/delete/' + listId,
           success: function() {
             getLists();
+            console.log("Tasks deleted");
           }
         });
+        listId = $('#lists option:selected').attr('id');
+        getTasks(listId);
       }
     });
     // close modal window
@@ -114,7 +124,7 @@ function eventListeners() {
   // lists select on change event listener
   $('#lists').on('change', function() {
     console.log("option has changed");
-    var listId = $('#lists option:selected').attr('id');
+    listId = $('#lists option:selected').attr('id');
     getTasks(listId);
   }); // end of lists select on change event listener
 
@@ -123,7 +133,7 @@ function eventListeners() {
   $('#tasksDiv').on('click','#deleteTaskButton', function() {
     console.log("deleteTaskButton clicked");
     taskId = $(this).data('id');
-    var listId = $('#lists option:selected').attr('id');
+    listId = $('#lists option:selected').attr('id');
     console.log("Task id is:",taskId);
     $.ajax({
       type: 'DELETE',
@@ -146,7 +156,7 @@ function eventListeners() {
     }
     console.log("Task id is:",taskId);
     console.log("task completed=",completed);
-    var listId = $('#lists option:selected').attr('id');
+    listId = $('#lists option:selected').attr('id');
     objectToSend = {
       done: completed
     };
@@ -171,14 +181,18 @@ function getLists() {
     url: "/lists",
     success: function(response) {
       console.log("Getting lists: ",response);
+
       $('#lists').empty();
       for (var i = 0; i < response.length; i++) {
         var list = response[i];
         $('#lists').append('<option id="' + list.list_id +
         '">' + list.list_name + '</option>');
       }
-      var listId = $('#lists option:selected').attr('id');
-      getTasks(listId);
+      if(response.length > 0) {
+        listId = $('#lists option:selected').attr('id');
+        console.log(listId);
+        getTasks(listId);
+      }
     }
   });
 } // end of getLists() function
