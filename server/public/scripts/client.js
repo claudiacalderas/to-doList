@@ -4,6 +4,9 @@ $(document).ready(function() {
   eventListeners();
   getLists();
 
+  // openModalWindow();
+
+
 });
 
 function eventListeners() {
@@ -32,6 +35,14 @@ function eventListeners() {
 
   // Delete list button on click
   $('#deleteListButton').on('click',function() {
+
+    openModalWindow();
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    modal.style.display = "block";
+
+    var deleteList = false;
+    if(deleteList) {
     console.log("deleteListButton clicked");
     // get list selected
     var listName = $('#lists').val();
@@ -45,7 +56,46 @@ function eventListeners() {
         getLists();
       }
     });
+    }
   }); // End of Delete list button on click
+
+  // button "No" in modal window event listener
+  $('#dontDelete').on('click',function() {
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Close the modal
+    modal.style.display = "none";
+  }); // End of button "No" in modal window event listener
+
+  // button "Yes" in modal window event listener
+  $('#goAhead').on('click',function() {
+    console.log("Yes button clicked");
+    // get list selected
+    var listName = $('#lists').val();
+    var listId = $('#lists option:selected').attr('id');
+    console.log('Delete List:', listName);
+    console.log("List Id:",listId);
+    // Delete tasks related to list
+    $.ajax({
+      type: 'DELETE',
+      url: '/lists/deleteTasks/' + listId,
+      success: function() {
+        // Delete the list
+        $.ajax({
+          type: 'DELETE',
+          url: '/lists/delete/' + listId,
+          success: function() {
+            getLists();
+          }
+        });
+      }
+    });
+
+    // close modal window
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    modal.style.display = "none";
+  }); // End of button "Yes" in modal window event listener
 
   // Add new task Button
   $('#newTaskButton').on('click',function() {
@@ -180,3 +230,21 @@ function  getTasks(id) {
     }
   });
 } // end of getTasks() function
+
+// Opens modal window that confirms list deletion
+function openModalWindow() {
+  // Get the modal
+  var modal = document.getElementById('myModal');
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  // When the user clicks on <span> (x), close the modal window
+  span.onclick = function() {
+      modal.style.display = "none";
+  };
+  // When the user clicks anywhere outside of the modal window, close it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  };
+}

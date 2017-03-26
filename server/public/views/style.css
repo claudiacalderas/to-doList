@@ -1,17 +1,17 @@
 .container {
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 100px;
 }
 
 h1 {
   color: LightSlateGray;
-  font-size: 30px;
+  font-size: 20px;
   font-family: sans-serif;
 }
 
 h2 {
   color: Black;
-  font-size: 20px;
+  font-size: 15px;
   font-family: sans-serif;
 }
 
@@ -26,6 +26,19 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+}
+
+#newTaskDescription, #newListInput, #lists{
+  width: 200px;
+}
+
+#newTaskNotes {
+  width: 215px;
+}
+
+#listSelection {
+  padding-top: 25px;
+  padding-bottom: 10px;
 }
 
 .taskBlock {
@@ -71,4 +84,64 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 12px;
+}
+
+/* Modal Window*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* End of Modal Window */
+
+/*#cboxDone {
+  align-self: center;
+  color: red;
+}*/
+
+input[type="checkbox"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+
+input[type="checkbox"]:checked {
+    background-color:red;
 }
