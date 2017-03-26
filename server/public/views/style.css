@@ -42,7 +42,7 @@ button {
   width: 150px;
   height: 20px;
   margin: 5px;
-  background-color: #bfbfbf;
+  background-color: #444343;
   border: none;
   color: white;
   text-align: center;
@@ -99,8 +99,7 @@ button {
   width: 20px;
   height: 20px;
   margin: 5px;
-  background-color: #a8a6a6;
-  /*background-color: gray;*/
+  background-color: #444343;
   border: none;
   color: white;
   text-align: center;
