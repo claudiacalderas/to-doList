@@ -103,6 +103,32 @@ function eventListeners() {
     });
   }); // end of delete task button event listener
 
+  // checkbox event listener
+  $('#tasksDiv').on('click','#cboxDone',function() {
+    console.log("cboxDone clicked");
+    taskId = $(this).data('id');
+    if ($(this).is(":checked")) {
+      completed = true;
+    } else {
+      completed = false;
+    }
+    console.log("Task id is:",taskId);
+    console.log("task completed=",completed);
+    var listId = $('#lists option:selected').attr('id');
+    objectToSend = {
+      done: completed
+    };
+    // update completion Status
+    $.ajax({
+      type: 'PUT',
+      url: '/tasks/update/' + taskId,
+      data: objectToSend,
+      success: function() {
+        getTasks(listId);
+      }
+    });
+  }); // end of checkbox event listener
+
 } // end of eventListeners() function
 
 
@@ -138,11 +164,20 @@ function  getTasks(id) {
       for (var i = 0; i < response.length; i++) {
         var task = response[i];
         $('#tasksDiv').append('<div class="taskBlock" id="' + task.task_id + '"></div>');
-
         var $el = $('#tasksDiv').children().last();
-        $el.append('<div id="left"><p><b>' + task.task_description +
+        if(task.done){
+          $el.append('<div id="left">'+
+                      '<input type="checkbox" id="cboxDone" data-id=' +
+                      task.task_id +' checked></div>');
+        } else {
+          $el.append('<div id="left">'+
+                      '<input type="checkbox" id="cboxDone" data-id=' +
+                      task.task_id +'></div>');
+        }
+        $el.append('<div id="middle"><p><b>' + task.task_description +
                     '</b></p><p>' + task.notes + '</p></div>');
-        $el.append('<div id="right"><button id="deleteTaskButton" data-id='+
+        $el.append('<div id="right">'+
+                    '<button id="deleteTaskButton" data-id='+
                     task.task_id+'>X</button></div>');
       }
     }

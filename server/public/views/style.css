@@ -29,7 +29,7 @@ button {
 }
 
 .taskBlock {
-  width: 300px;
+  width: 500px;
   height: 50px;
   background-color: WhiteSmoke;
   margin: 5px;
@@ -41,14 +41,21 @@ button {
 
 #left {
   background-color: WhiteSmoke;
-  width: 275px;
+  width: 25px;
+  height: 50px;
+  float: left;
+}
+
+#middle {
+  background-color: WhiteSmoke;
+  width: 300px;
   height: 50px;
   float: left;
 }
 
 #right {
   background-color: WhiteSmoke;
-  width: 25px;
+  width: 50px;
   height: 50px;
   float: right;
 }

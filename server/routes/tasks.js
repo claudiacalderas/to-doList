@@ -86,4 +86,27 @@ router.delete('/delete/:id', function(req,res) {
   });
 });
 
+router.put('/update/:id', function(req,res) {
+    var id = parseInt(req.params.id);
+    var doneColumn = req.body.done;
+    // UPDATE "tasks" SET "done"= $1 WHERE "task_id" = $2;
+    pool.connect(function(errorConnectingToDatabase,db,done) {
+      if(errorConnectingToDatabase) {
+        console.log('Error connecting to the database');
+        res.send(500);
+      } else {
+        db.query('UPDATE "tasks" SET "done"= $1 WHERE "task_id" = $2;',
+        [doneColumn,id], function(queryError,result) {
+          done();
+          if (queryError) {
+            console.log('Error making query',queryError);
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(201);
+          }
+        });
+      }
+    });
+});
+
 module.exports = router;
