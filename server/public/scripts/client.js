@@ -3,6 +3,7 @@ $(document).ready(function() {
 
   eventListeners();
   getLists();
+  //getTasks();
 
 });
 
@@ -34,9 +35,9 @@ function eventListeners() {
   $('#deleteListButton').on('click',function() {
     console.log("deleteListButton clicked");
     // get list selected
-    var listname = $('#lists').val();
+    var listName = $('#lists').val();
     var listId = $('#lists option:selected').attr('id');
-    console.log('Delete List:', listname);
+    console.log('Delete List:', listName);
     console.log("List Id:",listId);
     $.ajax({
       type: 'DELETE',
@@ -52,8 +53,16 @@ function eventListeners() {
     console.log("newTaskButton clicked");
   });
 
+  $('#lists').on('change', function() {
+    console.log("option has changed");
+    var listId = $('#lists option:selected').attr('id');
+    getTasks(listId);
+  });
+
+
 }
 
+// get lists defined by user
 function getLists() {
   $.ajax({
     type: "GET",
@@ -66,7 +75,34 @@ function getLists() {
         $('#lists').append('<option id="' + list.list_id +
         '">' + list.list_name + '</option>');
       }
+      var listId = $('#lists option:selected').attr('id');
+      getTasks(listId);
     }
   });
+} // end of getLists() function
 
-}
+// gets tasks for selected list
+function  getTasks(id) {
+  // get list selected
+  console.log("getting tasks for list:",id);
+  $.ajax({
+    type: "GET",
+    url: "/tasks/" + id,
+    success: function(response) {
+      console.log("Getting lists: ",response);
+      $('#tasksDiv').empty();
+      for (var i = 0; i < response.length; i++) {
+        var task = response[i];
+        $('#tasksDiv').append('<div class="taskBlock" id="' + task.task_id + '"></div>');
+
+        var $el = $('#tasksDiv').children().last();
+        $el.append('<div id="left"><p><b>' + task.task_description +
+                    '</b></p><p>' + task.notes + '</p></div>');
+        $el.append('<div id="right"><button id="deleteTaskButton" data_id='+
+                    task.task_id+'>X</button></div>');
+
+
+      }
+    }
+  });
+} // end of getTasks() function

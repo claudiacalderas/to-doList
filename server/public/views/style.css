@@ -1,6 +1,6 @@
-#container {
-  margin-top: 20px;
-  margin-left: 10px;
+.container {
+  margin-top: 50px;
+  margin-left: 100px;
 }
 
 h1 {
@@ -20,6 +20,44 @@ button {
   height: 20px;
   margin: 5px;
   background-color: #bfbfbf;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
+
+.taskBlock {
+  width: 300px;
+  height: 50px;
+  background-color: WhiteSmoke;
+  margin: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+#left {
+  background-color: WhiteSmoke;
+  width: 275px;
+  height: 50px;
+  float: left;
+}
+
+#right {
+  background-color: WhiteSmoke;
+  width: 25px;
+  height: 50px;
+  float: right;
+}
+
+#deleteTaskButton {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  background-color: gray;
   border: none;
   color: white;
   text-align: center;
