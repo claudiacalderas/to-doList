@@ -64,4 +64,26 @@ router.post('/add', function(req,res) {
   });
 });
 
+router.delete('/delete/:id', function(req,res) {
+  var id = parseInt(req.params.id);
+  console.log("Deleting task number:", id);
+  // DELETE FROM "tasks" WHERE "task_id" = 2;
+  pool.connect(function(errorConnectingToDatabase,db,done) {
+    if(errorConnectingToDatabase) {
+      console.log('Error connecting to the database');
+      res.sendStatus(500);
+    } else {
+      db.query('DELETE FROM "tasks" WHERE "task_id" = $1;',[id], function(queryError,result) {
+        done();
+        if (queryError) {
+          console.log('Error making query');
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

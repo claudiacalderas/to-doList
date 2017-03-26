@@ -88,6 +88,21 @@ function eventListeners() {
     getTasks(listId);
   }); // end of lists select on change event listener
 
+  // delete task button event listener
+  $('#tasksDiv').on('click','#deleteTaskButton', function() {
+    console.log("deleteTaskButton clicked");
+    taskId = $(this).data('id');
+    var listId = $('#lists option:selected').attr('id');
+    console.log("Task id is:",taskId);
+    $.ajax({
+      type: 'DELETE',
+      url: '/tasks/delete/' + taskId,
+      success: function() {
+        getTasks(listId);
+      }
+    });
+  }); // end of delete task button event listener
+
 } // end of eventListeners() function
 
 
@@ -127,7 +142,7 @@ function  getTasks(id) {
         var $el = $('#tasksDiv').children().last();
         $el.append('<div id="left"><p><b>' + task.task_description +
                     '</b></p><p>' + task.notes + '</p></div>');
-        $el.append('<div id="right"><button id="deleteTaskButton" data_id='+
+        $el.append('<div id="right"><button id="deleteTaskButton" data-id='+
                     task.task_id+'>X</button></div>');
       }
     }
