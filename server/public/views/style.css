@@ -3,6 +3,14 @@
   margin-left: 100px;
 }
 
+.taskDone {
+  background-color: LightSteelBlue;
+}
+
+.taskUndone {
+  background-color: WhiteSmoke;
+}
+
 h1 {
   color: LightSlateGray;
   font-size: 20px;
@@ -44,7 +52,6 @@ button {
 .taskBlock {
   width: 500px;
   height: 50px;
-  background-color: WhiteSmoke;
   margin: 5px;
   padding: 5px;
   padding-left: 10px;
@@ -53,25 +60,24 @@ button {
 }
 
 #left {
-  background-color: WhiteSmoke;
   width: 25px;
   height: 50px;
   float: left;
 }
 
 #middle {
-  background-color: WhiteSmoke;
   width: 300px;
   height: 50px;
   float: left;
 }
 
 #right {
-  background-color: WhiteSmoke;
   width: 50px;
   height: 50px;
   float: right;
 }
+
+
 
 #deleteTaskButton {
   width: 20px;

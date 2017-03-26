@@ -4,9 +4,6 @@ $(document).ready(function() {
   eventListeners();
   getLists();
 
-  // openModalWindow();
-
-
 });
 
 function eventListeners() {
@@ -33,31 +30,16 @@ function eventListeners() {
     }
   }); // End of Add new list button on click
 
+
   // Delete list button on click
   $('#deleteListButton').on('click',function() {
-
-    openModalWindow();
+    // Shows modal window to confirm deletion
+    getModalReady();
     // Get the modal
     var modal = document.getElementById('myModal');
     modal.style.display = "block";
-
-    var deleteList = false;
-    if(deleteList) {
-    console.log("deleteListButton clicked");
-    // get list selected
-    var listName = $('#lists').val();
-    var listId = $('#lists option:selected').attr('id');
-    console.log('Delete List:', listName);
-    console.log("List Id:",listId);
-    $.ajax({
-      type: 'DELETE',
-      url: '/lists/delete/' + listId,
-      success: function() {
-        getLists();
-      }
-    });
-    }
   }); // End of Delete list button on click
+
 
   // button "No" in modal window event listener
   $('#dontDelete').on('click',function() {
@@ -66,6 +48,7 @@ function eventListeners() {
     // Close the modal
     modal.style.display = "none";
   }); // End of button "No" in modal window event listener
+
 
   // button "Yes" in modal window event listener
   $('#goAhead').on('click',function() {
@@ -90,12 +73,11 @@ function eventListeners() {
         });
       }
     });
-
     // close modal window
-    // Get the modal
     var modal = document.getElementById('myModal');
     modal.style.display = "none";
   }); // End of button "Yes" in modal window event listener
+
 
   // Add new task Button
   $('#newTaskButton').on('click',function() {
@@ -128,12 +110,14 @@ function eventListeners() {
     }
   }); // End of New Task Button on click
 
+
   // lists select on change event listener
   $('#lists').on('change', function() {
     console.log("option has changed");
     var listId = $('#lists option:selected').attr('id');
     getTasks(listId);
   }); // end of lists select on change event listener
+
 
   // delete task button event listener
   $('#tasksDiv').on('click','#deleteTaskButton', function() {
@@ -149,6 +133,7 @@ function eventListeners() {
       }
     });
   }); // end of delete task button event listener
+
 
   // checkbox event listener
   $('#tasksDiv').on('click','#cboxDone',function() {
@@ -212,6 +197,7 @@ function  getTasks(id) {
         var task = response[i];
         $('#tasksDiv').append('<div class="taskBlock" id="' + task.task_id + '"></div>');
         var $el = $('#tasksDiv').children().last();
+        var doneTask = task.done;
         if(task.done){
           $el.append('<div id="left">'+
                       '<input type="checkbox" id="cboxDone" data-id=' +
@@ -226,13 +212,15 @@ function  getTasks(id) {
         $el.append('<div id="right">'+
                     '<button id="deleteTaskButton" data-id='+
                     task.task_id+'>X</button></div>');
+        // Sets different colors for done and undone tasks
+        setTaskColor(doneTask,$el);
       }
     }
   });
 } // end of getTasks() function
 
-// Opens modal window that confirms list deletion
-function openModalWindow() {
+// Gets modal window that confirms list deletion ready
+function getModalReady() {
   // Get the modal
   var modal = document.getElementById('myModal');
   // Get the <span> element that closes the modal
@@ -248,3 +236,19 @@ function openModalWindow() {
       }
   };
 }
+
+// Sets different colors for done and undone tasks
+function setTaskColor(doneTask,element) {
+  // changes color for done tasks
+  if (doneTask) {
+    element.removeClass('taskUndone');
+    element.children().removeClass('taskUndone');
+    element.addClass('taskDone');
+    element.children().addClass('taskDone');
+  } else {
+    element.removeClass('taskDone');
+    element.children().removeClass('taskDone');
+    element.addClass('taskUndone');
+    element.children().addClass('taskUndone');
+  }
+} // end of setTaskColor function
