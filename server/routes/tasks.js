@@ -34,4 +34,34 @@ router.get('/:list_id', function(req,res) {
   });
 });
 
+router.post('/add', function(req,res) {
+  console.log("inside /tasks/add route");
+  console.log("object received is: ", req.body);
+  var task_description = req.body.task_description;
+  var priority = parseInt(req.body.priority);
+  var list_id = parseInt(req.body.list_id);
+  var doneColumn = false;
+  var notes = req.body.notes;
+  // INSERT INTO "tasks" ("task_description","priority","list_id","done","due_date","notes") VALUES ($1,$2,$3,$4,$5,$6);
+  pool.connect(function(errorConnectingToDatabase,db,done) {
+    if(errorConnectingToDatabase) {
+      console.log('Error connecting to the database');
+      res.sendStatus(500);
+    } else {
+      var insertQuery = 'INSERT INTO "tasks" ("task_description","priority",'+
+          '"list_id","done","notes") VALUES ($1,$2,$3,$4,$5);';
+      db.query(insertQuery,[task_description,priority,list_id,doneColumn,notes],
+            function(queryError,result) {
+        done();
+        if (queryError) {
+          console.log('Error making query',queryError);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(201); // succesful insert status
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

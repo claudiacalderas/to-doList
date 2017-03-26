@@ -3,7 +3,6 @@ $(document).ready(function() {
 
   eventListeners();
   getLists();
-  //getTasks();
 
 });
 
@@ -48,19 +47,49 @@ function eventListeners() {
     });
   }); // End of Delete list button on click
 
-
+  // Add new task Button
   $('#newTaskButton').on('click',function() {
     console.log("newTaskButton clicked");
-  });
+    // get values from inputs
+    var taskDescription = $('#newTaskDescription').val();
+    var taskPriority = $('#newTaskPriority').val();
+    var taskListId = parseInt($('#lists option:selected').attr('id'));
+    var taskDone = false;
+    var taskNotes = $('#newTaskNotes').val();
+    var objectToSend = {
+      task_description: taskDescription,
+      priority: taskPriority,
+      list_id: taskListId,
+      done: taskDone,
+      notes: taskNotes
+    };
+    console.log(objectToSend);
+    if (taskDescription !== "") {
+      //ajax to create a new task
+      $.ajax({
+        type:"POST",
+        url: "/tasks/add",
+        data: objectToSend,
+        success: function(response) {
+          getTasks(taskListId);
+          $('#newTaskDescription').val("");
+          $('#newTaskPriority').val("");
+          $('#newTaskDueDate').val("");
+          $('#newTaskNotes').val("");
+        }
+      });
+    }
+  }); // End of New Task Button on click
 
+  // lists select on change event listener
   $('#lists').on('change', function() {
     console.log("option has changed");
     var listId = $('#lists option:selected').attr('id');
     getTasks(listId);
-  });
+  }); // end of lists select on change event listener
 
+} // end of eventListeners() function
 
-}
 
 // get lists defined by user
 function getLists() {
@@ -100,8 +129,6 @@ function  getTasks(id) {
                     '</b></p><p>' + task.notes + '</p></div>');
         $el.append('<div id="right"><button id="deleteTaskButton" data_id='+
                     task.task_id+'>X</button></div>');
-
-
       }
     }
   });
