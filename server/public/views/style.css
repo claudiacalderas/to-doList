@@ -1,0 +1,29 @@
+#container {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+h1 {
+  color: LightSlateGray;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+
+h2 {
+  color: Black;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+button {
+  width: 150px;
+  height: 20px;
+  margin: 5px;
+  background-color: #bfbfbf;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+}
