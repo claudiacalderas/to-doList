@@ -19,21 +19,22 @@
           <button id="goAhead">Yes</button>
         </div>
       </div>
-
-      <h1>To-Do List</h1>
+      <h1>TO-DO LIST</h1>
+      <div class="line"></div>
       <div class="listsDiv">
         <h2>New List:</h2>
           <input type="text" placeholder="List name" id="newListInput"></input>
           <button id="newListButton">Add New List</button>
       </div>
       <div id="addNewTaskDiv">
-        <h2>Add new Task:</h2>
+        <h2>New Task:</h2>
         <input type="text" placeholder="Task description" id="newTaskDescription">
         <button id="newTaskButton">Add New Task</button>
         <br>
         <input type="text" placeholder="Additional task notes" maxlength="200" id="newTaskNotes">
       </div>
       <div id="listSelection">
+      <h2>Active List:</h2>
       <select id="lists">
           <option>List 1</option>
           <option>List 2</option>
@@ -41,6 +42,17 @@
       </select>
       <button id="deleteListButton">Delete List</button>
     </div>
+      <div id="information">
+        <div id="space"><p></p></div>
+        <div id="gray">
+          <div id="undoneColorDiv" class="infoBoxes"></div>
+          <p class="infoSpans">Undone task</p>
+        </div>
+        <div id="blue">
+          <div id="doneColorDiv" class="infoBoxes"></div>
+          <p class="infoSpans">Done task</p>
+        </div>
+      </div>
       <div id="tasksDiv">
       </div>
     </div>

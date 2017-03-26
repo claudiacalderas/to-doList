@@ -207,11 +207,11 @@ function  getTasks(id) {
                       '<input type="checkbox" id="cboxDone" data-id=' +
                       task.task_id +'></div>');
         }
-        $el.append('<div id="middle"><p><b>' + task.task_description +
-                    '</b></p><p>' + task.notes + '</p></div>');
+        $el.append('<div id="middle"><span><b>' + task.task_description +
+                    '</b></span><br><span>' + task.notes + '</span></div>');
         $el.append('<div id="right">'+
                     '<button id="deleteTaskButton" data-id='+
-                    task.task_id+'>X</button></div>');
+                    task.task_id+'>&times;</button></div>');
         // Sets different colors for done and undone tasks
         setTaskColor(doneTask,$el);
       }
