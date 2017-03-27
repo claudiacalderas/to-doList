@@ -28,6 +28,8 @@ function eventListeners() {
           $('#newListInput').val("");
         }
       });
+      // selects the list we have just created
+      $('#lists').val(newList);
     }
   }); // End of Add new list button on click
 
