@@ -2,19 +2,13 @@ $(document).ready(function() {
   console.log("jQuery sourced");
 
   eventListeners();
-
-  // var numberOfLists = $("#lists").children().length;
-  // console.log("list has:", numberOfLists, "elements");
-  // if(numberOfLists > 0){
-    getLists();
-  // }
+  getLists();
 
 });
 
 var listId = "";
 
 function eventListeners() {
-
   // Add new list button on click
   $('#newListButton').on('click',function() {
     var newList = $('#newListInput').val();
@@ -170,7 +164,6 @@ function eventListeners() {
       }
     });
   }); // end of checkbox event listener
-
 } // end of eventListeners() function
 
 
