@@ -1,4 +1,4 @@
-# to-doList ()
+# to-doList (ajax, jQuery, PostgreSQL, nodeJS): Allows user to create a List with specific tasks. Tasks can added, be marked as complete or deleted. Lists can be added and deleted.
 
 ## Requirements
 This weekend is all about showing us that you have a handle on each of the different parts of the full stack. For this weekends challenge, you are going to create a 'TO DO' application. This is the type of application that is very common to tackle when learning a new language, which makes it extremely valuable to work through for the first time, since chances are good that at some point in your career you will tackle this type of application, but in another language.
